@@ -7,22 +7,34 @@ import java.util.List;
 @RestController
 @RequestMapping("equipment")
 public class EquipmentWebService {
+    private String TVsName;
+    Computers ListOfComputers = new Computers();
+
     @GetMapping
     public String test() {
         return "First try in Spring Web";
     }
+
+
     @GetMapping("/computers")
-    public List<String> computersList(){
-        return List.of("Lenovo","Dell","MacBook","HP");
-    }
-    @GetMapping("/TVs")
-    public List<String> TVsList(){
-        return List.of("LG","Samsung","Philips");
+    public List<String> studentsList() {
+        return ListOfComputers.getComputers();
     }
 
-    @PostMapping("/add/{computersName}")
-    public void add(@PathVariable("computersName") String computersName){
-        System.out.println(computersName);
+    @PostMapping("/addComputers/{name}")
+    public void addComputers(@PathVariable String name){
+        ListOfComputers.addComputers(name);
     }
 
+    @PutMapping("/addComputers/{name}")
+    public List<String> getComputers(@PathVariable("name") String name){
+        ListOfComputers.computers.add(name);
+        return(ListOfComputers.computers);
+    }
+
+    @DeleteMapping("delComputers/{name}")
+    public void delComputers(@PathVariable("name") String name){
+        ListOfComputers.delComputers(name);
+
+    }
 }
